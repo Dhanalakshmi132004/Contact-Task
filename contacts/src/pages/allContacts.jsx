@@ -136,9 +136,42 @@ function AllContacts() {
           </button>
         </div>
 
+        <ul className="contactBar">
+          {filteredContact.map((contact, index) => (
+            <div className="singleContact" key={index}>
+              <div className="avatorAndName">
+                <li className="avatorDesign">
+                  {avator(contact.firstName, contact.lastName)}
+                </li>
+                <div className="names">
+                  {contact.firstName} {contact.lastName}
+                </div>
+              </div>
+              <div className="viewAndDeleteButton">
+                <button
+                  className="viewAndDeleteButtonDesign"
+                  onClick={() => handleViewContact(index)}
+                >
+                  {modal === "viewContact" && selectedContactIndex === index
+                    ? "Close"
+                    : "View"}
+                </button>
+                <button
+                  onClick={() => deleteTask(index)}
+                  className="viewAndDeleteButtonDesign"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
+        </ul>
+      </div>
+
+      <div className="second-half">
         {modal === "addContact" && (
           <div className="modal">
-            <form onSubmit={addNewContact} className="popUp">
+            <form onSubmit={addNewContact} className="viewModalFixed">
               <h2>Add New Contact</h2>
               <label className="viewNames">
                 First name
@@ -184,41 +217,8 @@ function AllContacts() {
               </div>
             </form>
           </div>
-        )}
-
-        <ul className="contactBar">
-          {filteredContact.map((contact, index) => (
-            <div className="singleContact" key={index}>
-              <div className="avatorAndName">
-                <li className="avatorDesign">
-                  {avator(contact.firstName, contact.lastName)}
-                </li>
-                <div className="names">
-                  {contact.firstName} {contact.lastName}
-                </div>
-              </div>
-              <div className="viewAndDeleteButton">
-                <button
-                  className="designForButton"
-                  onClick={() => handleViewContact(index)}
-                >
-                  {modal === "viewContact" && selectedContactIndex === index
-                    ? "Close"
-                    : "View"}
-                </button>
-                <button
-                  onClick={() => deleteTask(index)}
-                  className="designForButton"
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
-          ))}
-        </ul>
-      </div>
-
-      <div className="second-half">
+        )
+        }
         {modal === "viewContact" && selectedContactIndex !== null ? (
           <div className="viewModalFixed">
             {edit ? (
